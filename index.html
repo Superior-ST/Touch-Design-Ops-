@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Touch Design | Operations</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#141821;--mut:#6b7280;--line:#e4e6eb;--acc:#e8462a;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1117;--card:#171b24;--ink:#e8eaf0;--mut:#8a92a3;--line:#262c39}}
+:root[data-theme="dark"]{--bg:#0e1117;--card:#171b24;--ink:#e8eaf0;--mut:#8a92a3;--line:#262c39}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{font-weight:800;letter-spacing:.5px}.logo b{color:var(--acc)}.sp{flex:1}
+nav{display:flex;gap:4px;padding:8px 20px 0;overflow-x:auto;background:var(--card);border-bottom:1px solid var(--line)}
+nav button{border:0;background:none;color:var(--mut);padding:9px 14px;font:inherit;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+nav button.on{color:var(--ink);border-color:var(--acc)}
+main{padding:20px;max-width:1300px;margin:auto}
+h1{font-size:22px;margin:0 0 2px}h2{font-size:15px;margin:0 0 12px}.mut{color:var(--mut)}
+.grid{display:grid;gap:14px}.k{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:16px 0}.two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi small{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.6px}.kpi div{font-size:24px;font-weight:700;margin-top:4px}.kpi span{font-size:12px;color:var(--mut)}
+.bar{height:6px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}.row:first-of-type{border-top:0}
+.pill{padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;background:var(--line)}
+.cf{display:flex;gap:10px;align-items:flex-end;height:130px}.cf div{flex:1;text-align:center;font-size:11px;color:var(--mut)}.cf p{margin:0 auto 4px;display:flex;gap:3px;align-items:flex-end;height:100px;justify-content:center}.cf i{width:35%;border-radius:3px 3px 0 0;min-height:2px}
+.tool{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+input,select,button.b{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+button.b{cursor:pointer;font-weight:600}button.p{background:var(--acc);color:#fff;border-color:var(--acc)}button.d{color:var(--bad)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:720px}th{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--mut);text-align:left;padding:10px 8px;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--line)}
+td{padding:3px 4px;border-bottom:1px solid var(--line)}td input,td select{width:100%;border-color:transparent;background:transparent;padding:6px}td input:hover,td select:hover,td input:focus{border-color:var(--line);background:var(--bg)}
+tr.low td{background:rgba(220,38,38,.09)}tfoot td{font-weight:700;padding:10px 8px}
+.x{color:var(--mut);cursor:pointer;border:0;background:none;font-size:16px}
+[data-v="Overdue"],[data-v="Delayed"],[data-v="On hold"]{color:var(--bad)}[data-v="Paid"],[data-v="Completed"],[data-v="Done"],[data-v="Ready"]{color:var(--ok)}
+#m{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}#m.on{display:flex}
+#m form,#m .box{background:var(--card);border-radius:12px;padding:20px;width:min(420px,100%);display:grid;gap:10px}
+textarea{width:100%;height:160px;font:12px monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+.gt{display:flex;height:42px;align-items:center;border-bottom:1px solid var(--line)}.gl{width:220px;flex:none;position:sticky;left:0;z-index:3;background:var(--card);padding:0 12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;height:100%;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line)}
+.gtr{position:relative;flex:none;height:100%}.gtr u{position:absolute;top:0;bottom:0;width:2px;background:var(--acc);z-index:1}
+.gb{position:absolute;top:9px;height:24px;border-radius:6px;overflow:hidden;color:#fff;font-size:11px;font-weight:600;line-height:24px;padding:0 6px;white-space:nowrap;z-index:2}.gb i{position:absolute;inset:0 auto 0 0;background:rgba(0,0,0,.28)}.gb span{position:relative}
+.gm{position:absolute;top:0;font-size:11px;font-weight:700;color:var(--mut);padding:12px 4px 0;border-left:1px solid var(--line);height:100%}
+.lg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:10px}.lg b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
+</style></head><body>
+<header><div class="logo"><b>TOUCH</b>DESIGN LTD <span class="mut" style="font-weight:500">· Operations</span></div><div class="sp"></div><span class="mut" id="who">Evans Mwaniki M. · Project Manager</span><button class="b" id="rs">Reset data</button></header>
+<nav id="nav"></nav><main id="main"></main><div id="m"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const iso=n=>{const x=new Date();x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
+const rid=()=>'r'+Math.random().toString(36).slice(2,9),KEY='td_ops_v1';
+const T=(id,name,cols,rows)=>({id,name,cols,rows:rows.map(r=>({id:rid(),...r}))});
+const c=(k,l,t,o)=>({k,l,t,o});
+function seed(){return{tabs:[
+T('projects','Projects',[c('code','Code','text'),c('name','Project','text'),c('client','Client','text'),c('service','Service','select','Exhibition|Branding & print|Retail fit-out|Signage|3D & interiors'),c('status','Status','select','Planning|Design review|In production|Installation|Completed|On hold'),c('lead','Lead','text'),c('progress','Progress %','progress'),c('start','Start','date'),c('due','Due','date'),c('budget','Budget (KES)','money')],[
+{code:'TD-2609',name:'Afreximbank Pavilion',client:'Afreximbank',service:'Exhibition',status:'In production',lead:'N. Kamau',progress:72,start:iso(-38),due:iso(7),budget:4820000},
+{code:'TD-2611',name:'Safaricom Retail Refresh',client:'Safaricom PLC',service:'Retail fit-out',status:'Installation',lead:'A. Wanjiku',progress:88,start:iso(-45),due:iso(3),budget:2360000},
+{code:'TD-2614',name:'Africa Climate Summit',client:'Ministry of Environment',service:'Branding & print',status:'Design review',lead:'S. Otieno',progress:46,start:iso(-20),due:iso(19),budget:3140000},
+{code:'TD-2616',name:'Radisson Wayfinding',client:'Radisson Blu',service:'Signage',status:'Planning',lead:'M. Gitau',progress:24,start:iso(-5),due:iso(27),budget:986000}]),
+T('schedule','Schedule',[c('date','Date','date'),c('title','Event','text'),c('type','Type','select','Installation|Inspection|Handover|Meeting|Delivery'),c('loc','Location','text'),c('owner','Owner','text'),c('status','Status','select','Scheduled|Done|Delayed')],[
+{date:iso(1),title:'Safaricom night installation',type:'Installation',loc:'Westgate Mall',owner:'A. Wanjiku',status:'Scheduled'},
+{date:iso(3),title:'Pavilion client inspection',type:'Inspection',loc:'Touch workshop',owner:'N. Kamau',status:'Scheduled'},
+{date:iso(7),title:'Afreximbank handover',type:'Handover',loc:'KICC, Nairobi',owner:'N. Kamau',status:'Scheduled'}]),
+T('clients','Clients',[c('name','Client','text'),c('contact','Contact person','text'),c('phone','Phone','text'),c('email','Email','text'),c('status','Status','select','Active|Prospect|Dormant')],[
+{name:'Afreximbank',contact:'',phone:'',email:'',status:'Active'},{name:'Safaricom PLC',contact:'',phone:'',email:'',status:'Active'},{name:'Ministry of Environment',contact:'',phone:'',email:'',status:'Active'},{name:'Radisson Blu',contact:'',phone:'',email:'',status:'Active'}]),
+T('production','Production',[c('job','Job','text'),c('project','Project code','text'),c('stage','Stage','select','Cutting|Fabrication|Printing|Finishing|QC|Ready'),c('bay','Bay','text'),c('who','Assigned to','text'),c('progress','Progress %','progress'),c('due','Due','date')],[
+{job:'Pavilion wall panels',project:'TD-2609',stage:'Fabrication',bay:'Bay 1',who:'Crew A',progress:70,due:iso(4)},
+{job:'Counter units',project:'TD-2611',stage:'Finishing',bay:'Bay 2',who:'Crew B',progress:90,due:iso(2)},
+{job:'Summit banners',project:'TD-2614',stage:'Printing',bay:'Print room',who:'S. Otieno',progress:30,due:iso(12)}]),
+T('inventory','Inventory',[c('item','Item','text'),c('cat','Category','text'),c('qty','In stock','number'),c('min','Reorder at','number'),c('supplier','Supplier','text')],[
+{item:'MDF 18mm sheets',cat:'Boards',qty:40,min:20,supplier:''},{item:'Vinyl roll 1.2m',cat:'Print',qty:6,min:8,supplier:''},{item:'LED strip 5m',cat:'Lighting',qty:24,min:10,supplier:''},{item:'Acrylic 5mm sheets',cat:'Boards',qty:12,min:6,supplier:''}]),
+T('finance','Finance',[c('date','Date','date'),c('type','Type','select','Invoice|Cost'),c('ref','Ref / description','text'),c('project','Project code','text'),c('amount','Amount (KES)','money'),c('status','Status','select','Draft|Sent|Paid|Overdue')],[
+{date:iso(-120),type:'Invoice',ref:'Deposit',project:'TD-2609',amount:2400000,status:'Paid'},{date:iso(-110),type:'Cost',ref:'Materials',project:'TD-2609',amount:900000,status:'Paid'},
+{date:iso(-80),type:'Invoice',ref:'Deposit',project:'TD-2611',amount:1200000,status:'Paid'},{date:iso(-70),type:'Cost',ref:'Fabrication labour',project:'TD-2611',amount:640000,status:'Paid'},
+{date:iso(-45),type:'Invoice',ref:'Milestone 2',project:'TD-2609',amount:1800000,status:'Overdue'},{date:iso(-40),type:'Cost',ref:'Printing',project:'TD-2614',amount:520000,status:'Paid'},
+{date:iso(-20),type:'Invoice',ref:'Deposit',project:'TD-2614',amount:1500000,status:'Sent'},{date:iso(-15),type:'Cost',ref:'Site logistics',project:'TD-2611',amount:410000,status:'Paid'},
+{date:iso(-5),type:'Invoice',ref:'Final',project:'TD-2611',amount:1160000,status:'Overdue'}])]}}
+let S,ui={tab:'overview',q:'',f:'',s:null};
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!S||!S.tabs)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const tab=id=>S.tabs.find(t=>t.id===id),rows=id=>(tab(id)||{rows:[]}).rows;
+const fmt=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?Math.round(n/1e3)+'K':String(Math.round(n));
+const sum=(a,k)=>a.reduce((s,r)=>s+(+r[k]||0),0),day=d=>Math.round((new Date(d)-new Date(iso(0)))/864e5);
+function ask(title,fields,cb,txt){const m=$('#m');m.className='on';
+ m.innerHTML=txt!==undefined?`<div class="box"><b>${esc(title)}</b><textarea readonly>${esc(txt)}</textarea><button class="b p" type="button" id="mc">Close</button></div>`
+ :`<form><b>${esc(title)}</b>${fields.map(f=>f.o?`<select name="${f.n}">${f.o.split('|').map(o=>`<option>${o}</option>`).join('')}</select>`:`<input name="${f.n}" placeholder="${esc(f.l)}" value="${esc(f.v||'')}" autofocus>`).join('')}<div class="tool"><button class="b p">OK</button><button class="b" type="button" id="mc">Cancel</button></div></form>`;
+ $('#mc').onclick=()=>m.className='';const fm=m.querySelector('form');if(fm)fm.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(fm));m.className='';cb(d)}}
+function nav(){$('#nav').innerHTML=[{id:'overview',name:'Overview'},{id:'timeline',name:'Timeline'},{id:'analysis',name:'Analysis'},...S.tabs].map(t=>`<button class="${ui.tab===t.id?'on':''}" data-t="${t.id}">${esc(t.name)}</button>`).join('')+'<button data-add="1" title="Add tab">＋ Tab</button>'}
+function overview(){const P=rows('projects'),A=P.filter(p=>p.status!=='Completed'),F=rows('finance'),inv=F.filter(r=>r.type==='Invoice'),out=inv.filter(r=>r.status==='Sent'||r.status==='Overdue'),od=inv.filter(r=>r.status==='Overdue');
+ const dl=[...A.map(p=>p.due),...rows('schedule').filter(e=>e.status!=='Done').map(e=>e.date)].filter(d=>d&&day(d)>=0&&day(d)<=14).length;
+ const mo=[];for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);mo.push(d.toISOString().slice(0,7))}
+ const cf=mo.map(m=>({m,i:sum(inv.filter(r=>(r.date||'').startsWith(m)),'amount'),c:sum(F.filter(r=>r.type==='Cost'&&(r.date||'').startsWith(m)),'amount')})),mx=Math.max(1,...cf.flatMap(x=>[x.i,x.c]));
+ const sv={};P.forEach(p=>sv[p.service||'Other']=(sv[p.service||'Other']||0)+1);const low=rows('inventory').filter(r=>+r.qty<=+r.min);
+ const up=rows('schedule').filter(e=>e.status!=='Done'&&e.date&&day(e.date)>=0).sort((a,b)=>a.date>b.date?1:-1).slice(0,5);
+ const K=(l,v,s)=>`<div class="card kpi"><small>${l}</small><div>${v}</div><span>${s}</span></div>`;
+ return`<h1>Good day, Evans.</h1><div class="mut">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · everything below updates live from your tabs.</div>
+ <div class="grid k">${K('ACTIVE PROJECTS',A.length,A.filter(p=>p.status==='In production').length+' in production')}${K('BUDGET IN PLAY','KES '+fmt(sum(A,'budget')),'active projects')}${K('OUTSTANDING','KES '+fmt(sum(out,'amount')),od.length+' overdue invoice(s)')}${K('DEADLINES',dl,'next 14 days')}${K('AVG PROGRESS',A.length?Math.round(sum(A,'progress')/A.length)+'%':'—','active projects')}${K('LOW STOCK',low.length,'items at/below reorder')}</div>
+ <div class="grid two"><div class="card"><h2>Projects in motion</h2>${A.sort((a,b)=>a.due>b.due?1:-1).slice(0,6).map(p=>`<div class="row"><div style="flex:1"><b>${esc(p.name)}</b><div class="mut">${esc(p.code)} · ${esc(p.client)} · ${esc(p.status)}</div><div class="bar"><i style="width:${+p.progress||0}%"></i></div></div><div style="text-align:right"><b>${+p.progress||0}%</b><div class="mut">${esc(p.due)}</div></div></div>`).join('')||'<span class="mut">No active projects.</span>'}</div>
+ <div class="card"><h2>Cash flow · last 6 months</h2><div class="cf">${cf.map(x=>`<div><p><i style="height:${x.i/mx*100}%;background:var(--acc)" title="Invoiced ${fmt(x.i)}"></i><i style="height:${x.c/mx*100}%;background:var(--mut)" title="Costs ${fmt(x.c)}"></i></p>${x.m.slice(5)}</div>`).join('')}</div><div class="mut" style="margin-top:8px">Invoiced <b style="color:var(--acc)">${fmt(sum(inv,'amount'))}</b> · Costs <b>${fmt(sum(F.filter(r=>r.type==='Cost'),'amount'))}</b> · Net <b>${fmt(sum(inv,'amount')-sum(F.filter(r=>r.type==='Cost'),'amount'))}</b></div></div>
+ <div class="card"><h2>Up next</h2>${up.map(e=>`<div class="row"><div><b>${esc(e.title)}</b><div class="mut">${esc(e.loc)}</div></div><span class="pill">${esc(e.date)}</span></div>`).join('')||'<span class="mut">Nothing scheduled.</span>'}</div>
+ <div class="card"><h2>Work by service</h2>${Object.entries(sv).map(([k,v])=>`<div style="margin-bottom:10px"><div class="row" style="border:0;padding:0"><span>${esc(k)}</span><b>${Math.round(v/P.length*100)}%</b></div><div class="bar"><i style="width:${v/P.length*100}%"></i></div></div>`).join('')}${low.length?`<div style="color:var(--bad);margin-top:8px">⚠ Reorder: ${low.map(r=>esc(r.item)).join(', ')}</div>`:''}</div></div>`}
+function view(t){const q=ui.q.toLowerCase(),fc=t.cols.find(x=>x.t==='select');
+ let R=t.rows.filter(r=>(!q||t.cols.some(x=>String(r[x.k]??'').toLowerCase().includes(q)))&&(!ui.f||!fc||r[fc.k]===ui.f));
+ if(ui.s){const{k,d}=ui.s,n=['number','money','progress'].includes(t.cols.find(x=>x.k===k).t);R=[...R].sort((a,b)=>{let x=a[k]??'',y=b[k]??'';if(n){x=+x||0;y=+y||0}return(x>y?1:x<y?-1:0)*d})}
+ const cell=(r,x)=>{const v=r[x.k]??'',a=`data-r="${r.id}" data-k="${x.k}"`;
+  if(x.t==='select')return`<select ${a} data-v="${esc(v)}">${(x.o||'').split('|').map(o=>`<option${o===v?' selected':''}>${esc(o)}</option>`).join('')}</select>`;
+  if(x.t==='progress')return`<input ${a} type="number" min="0" max="100" value="${esc(v)}"><div class="bar" style="margin:0 6px"><i style="width:${+v||0}%"></i></div>`;
+  return`<input ${a} type="${x.t==='date'?'date':x.t==='text'?'text':'number'}" value="${esc(v)}">`};
+ const low=t.id==='inventory';
+ return`<div class="tool"><h1 style="margin-right:auto">${esc(t.name)} <span class="mut" style="font-size:13px;font-weight:400">${R.length} of ${t.rows.length}</span></h1><input id="q" placeholder="Search…" value="${esc(ui.q)}">${fc?`<select id="f"><option value="">All ${esc(fc.l)}</option>${fc.o.split('|').map(o=>`<option${o===ui.f?' selected':''}>${o}</option>`).join('')}</select>`:''}<button class="b p" data-a="row">＋ Add row</button><button class="b" data-a="col">＋ Column</button><button class="b" data-a="ren">Rename</button><button class="b" data-a="csv">Copy CSV</button><button class="b d" data-a="del">Delete tab</button></div>
+ <div class="tw"><table><thead><tr>${t.cols.map(x=>`<th data-s="${x.k}">${esc(x.l)}${ui.s&&ui.s.k===x.k?(ui.s.d>0?' ▲':' ▼'):''} <button class="x" data-dc="${x.k}" title="Remove column">×</button></th>`).join('')}<th></th></tr></thead>
+ <tbody>${R.map(r=>`<tr data-row="${r.id}"${low&&+r.qty<=+r.min?' class="low"':''}>${t.cols.map(x=>`<td>${cell(r,x)}</td>`).join('')}<td><button class="x" data-dr="${r.id}" title="Delete row">🗑</button></td></tr>`).join('')||`<tr><td colspan="${t.cols.length+1}" class="mut" style="padding:20px">No rows yet — click “Add row”.</td></tr>`}</tbody>
+ <tfoot><tr>${t.cols.map(x=>`<td>${x.t==='money'?'Σ '+fmt(sum(R,x.k)):''}</td>`).join('')}<td></td></tr></tfoot></table></div>`}
+let Z=14;const SC={'Planning':'#94a3b8','Design review':'#8b5cf6','In production':'#e8462a','Installation':'#f59e0b','Completed':'#16a34a','On hold':'#6b7280'};
+function gantt(){const P=rows('projects').filter(p=>p.due).map(p=>({...p,s:day(p.start||p.due),e:day(p.due)})).sort((a,b)=>a.s-b.s);
+ const mn=Math.min(-7,...P.map(p=>p.s))-3,mx=Math.max(30,...P.map(p=>p.e))+5,W=(mx-mn)*Z,bg=`background-image:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px ${7*Z}px)`;
+ let mh='';for(let i=mn;i<=mx;i++){const d=new Date();d.setDate(d.getDate()+i);if(i===mn||d.getDate()===1)mh+=`<div class="gm" style="left:${(i-mn)*Z}px">${d.toLocaleDateString('en-GB',{month:'short',year:'2-digit'})}</div>`}
+ const td=`<u style="left:${-mn*Z}px"></u>`;
+ return`<div class="tool"><h1 style="margin-right:auto">Timeline <span class="mut" style="font-size:13px;font-weight:400">${P.length} projects · edit dates in the Projects tab</span></h1><button class="b" data-z="8">Compact</button><button class="b" data-z="14">Normal</button><button class="b" data-z="26">Wide</button></div>
+ <div class="tw"><div style="width:${220+W}px"><div class="gt" style="height:38px"><div class="gl" style="font-size:11px;color:var(--mut)">PROJECT</div><div class="gtr" style="width:${W}px">${mh}${td}</div></div>
+ ${P.map(p=>{const w=Math.max(1,p.e-p.s+1)*Z,late=p.e<0&&p.status!=='Completed';return`<div class="gt"><div class="gl"><b>${esc(p.name)}</b><span class="mut" style="font-size:11px">${esc(p.client)} · ${esc(p.status)}</span></div><div class="gtr" style="width:${W}px;${bg}">${td}<div class="gb" title="${esc(p.start||'')} → ${esc(p.due)} · ${+p.progress||0}%" style="left:${(p.s-mn)*Z}px;width:${w}px;background:${SC[p.status]||'#64748b'};${late?'outline:2px solid var(--bad)':''}"><i style="width:${+p.progress||0}%"></i><span>${+p.progress||0}%</span></div></div></div>`}).join('')||'<div class="mut" style="padding:20px">Add projects with a start and due date.</div>'}</div></div>
+ <div class="lg">${Object.entries(SC).map(([k,v])=>`<span><b style="background:${v}"></b>${k}</span>`).join('')}<span><b style="background:var(--acc)"></b>Today</span><span>Darker fill = progress · red outline = overdue</span></div>`}
+function analysis(){const P=rows('projects'),F=rows('finance'),m=(r,f)=>sum(r.filter(f),'amount'),pc=v=>Math.round(v)+'%';
+ const L=P.map(p=>{const f=F.filter(r=>r.project&&r.project===p.code),iv=f.filter(r=>r.type==='Invoice'),i=sum(iv,'amount'),pd=m(iv,r=>r.status==='Paid'),od=m(iv,r=>r.status==='Overdue'),ou=od+m(iv,r=>r.status==='Sent'),co=m(f,r=>r.type==='Cost'),b=+p.budget||0,pr=+p.progress||0,sp=b?co/b*100:0;
+  let h=['On track','var(--ok)'];if(day(p.due)<0&&p.status!=='Completed')h=['Late','var(--bad)'];else if(od>0)h=['Payment risk','var(--bad)'];else if(sp>pr+15)h=['Overspending','var(--warn)'];
+  return{p,i,pd,ou,co,b,pr,sp,pf:i-co,h}});
+ const T=x=>({b:sum(x,'b'),i:sum(x,'i'),pd:sum(x,'pd'),ou:sum(x,'ou'),co:sum(x,'co'),pf:sum(x,'pf')}),t=T(L),cl=v=>v<0?'color:var(--bad)':'';
+ const K=(l,v,s)=>`<div class="card kpi"><small>${l}</small><div>${v}</div><span>${s}</span></div>`;
+ const grp=k=>{const g={};L.forEach(x=>{const n=x.p[k]||'—',a=g[n]=g[n]||{n,c:0,pr:0,b:0,i:0,pd:0,ou:0,co:0,pf:0};a.c++;a.pr+=x.pr;['b','i','pd','ou','co','pf'].forEach(q=>a[q]+=x[q])});return Object.values(g)};
+ const roll=(title,k)=>`<div class="card"><h2>${title}</h2><div class="tw" style="border:0"><table style="min-width:640px"><thead><tr>${['','Projects','Avg progress','Budget','Invoiced','Outstanding','Costs','Profit'].map(h=>`<th style="cursor:default">${h}</th>`).join('')}</tr></thead><tbody>${grp(k).map(a=>`<tr><td><b>${esc(a.n)}</b></td><td>${a.c}</td><td>${pc(a.pr/a.c)}</td><td>${fmt(a.b)}</td><td>${fmt(a.i)}</td><td>${fmt(a.ou)}</td><td>${fmt(a.co)}</td><td style="${cl(a.pf)}"><b>${fmt(a.pf)}</b></td></tr>`).join('')}</tbody></table></div></div>`;
+ const lost=F.filter(r=>!P.some(p=>p.code===r.project)).length;
+ return`<h1>Analysis</h1><div class="mut">Sums are calculated from Projects + Finance. Link each finance row to a project by typing its project code (e.g. TD-2609).</div>
+ <div class="grid k">${K('TOTAL BUDGET','KES '+fmt(t.b),L.length+' projects')}${K('INVOICED','KES '+fmt(t.i),t.b?pc(t.i/t.b*100)+' of budget':'')}${K('COLLECTED','KES '+fmt(t.pd),t.i?pc(t.pd/t.i*100)+' of invoiced':'')}${K('OUTSTANDING','KES '+fmt(t.ou),'awaiting payment')}${K('COSTS','KES '+fmt(t.co),t.b?pc(t.co/t.b*100)+' of budget':'')}${K('PROFIT','<span style="'+cl(t.pf)+'">KES '+fmt(t.pf)+'</span>',t.i?pc(t.pf/t.i*100)+' margin (invoiced − costs)':'')}</div>
+ ${lost?`<div class="card" style="margin-bottom:14px;border-color:var(--warn)">⚠ ${lost} finance row(s) have no matching project code and are not counted per project.</div>`:''}
+ <div class="card" style="margin-bottom:14px"><h2>Project health</h2><div class="tw" style="border:0"><table style="min-width:900px"><thead><tr>${['Project','Client','Progress','Budget spent','Budget','Invoiced','Collected','Outstanding','Costs','Profit','Health'].map(h=>`<th style="cursor:default">${h}</th>`).join('')}</tr></thead><tbody>${L.map(x=>`<tr><td><b>${esc(x.p.name)}</b><div class="mut">${esc(x.p.code)}</div></td><td>${esc(x.p.client)}</td><td style="min-width:110px">${pc(x.pr)}<div class="bar"><i style="width:${x.pr}%"></i></div></td><td style="min-width:110px">${pc(x.sp)}<div class="bar"><i style="width:${Math.min(100,x.sp)}%;background:${x.sp>x.pr+15?'var(--warn)':'var(--mut)'}"></i></div></td><td>${fmt(x.b)}</td><td>${fmt(x.i)}</td><td>${fmt(x.pd)}</td><td>${fmt(x.ou)}</td><td>${fmt(x.co)}</td><td style="${cl(x.pf)}"><b>${fmt(x.pf)}</b></td><td><span class="pill" style="color:${x.h[1]}">${x.h[0]}</span></td></tr>`).join('')||'<tr><td class="mut" style="padding:20px">Add projects first.</td></tr>'}</tbody></table></div></div>
+ <div class="grid two">${roll('By client','client')}${roll('By service / event type','service')}</div>`}
+function render(){nav();const t=tab(ui.tab);$('#main').innerHTML=t?view(t):ui.tab==='timeline'?gantt():ui.tab==='analysis'?analysis():overview()}
+document.addEventListener('click',e=>{const g=s=>e.target.closest(s),t=tab(ui.tab);let b;
+ if(b=g('[data-z]')){Z=+b.dataset.z;render()}
+ else if(b=g('[data-t]')){ui={tab:b.dataset.t,q:'',f:'',s:null};render()}
+ else if(g('[data-add]'))ask('New tab',[{n:'n',l:'Tab name'}],d=>{if(!d.n.trim())return;const id='t'+rid();S.tabs.push(T(id,d.n.trim(),[c('item','Item','text'),c('owner','Owner','text'),c('status','Status','select','To do|In progress|Done'),c('due','Due','date'),c('notes','Notes','text')],[{}]));ui={tab:id,q:'',f:'',s:null};save();render()});
+ else if(g('#rs'))ask('Reset all data to the starter template?',[{n:'x',l:'',o:'Cancel|Yes, reset'}],d=>{if(d.x!=='Cancel'){S=seed();ui.tab='overview';save();render()}});
+ else if(b=g('[data-dc]')){e.stopPropagation();const k=b.dataset.dc;if(t.cols.length>1)ask('Remove this column and its data?',[{n:'x',l:'',o:'Cancel|Yes, remove'}],d=>{if(d.x!=='Cancel'){t.cols=t.cols.filter(x=>x.k!==k);save();render()}})}
+ else if(b=g('[data-dr]')){t.rows=t.rows.filter(r=>r.id!==b.dataset.dr);save();render()}
+ else if(b=g('[data-s]')){const k=b.dataset.s;ui.s=ui.s&&ui.s.k===k?{k,d:-ui.s.d}:{k,d:1};render()}
+ else if(b=g('[data-a]')){const a=b.dataset.a;
+  if(a==='row'){t.rows.push({id:rid()});ui.q=ui.f='';save();render()}
+  if(a==='col')ask('New column',[{n:'n',l:'Column name'},{n:'t',l:'',o:'text|number|money|date'}],d=>{if(!d.n.trim())return;t.cols.push(c('c'+rid(),d.n.trim(),d.t));save();render()});
+  if(a==='ren')ask('Rename tab',[{n:'n',l:'Name',v:t.name}],d=>{if(d.n.trim()){t.name=d.n.trim();save();render()}});
+  if(a==='csv')ask('Copy this CSV',0,0,[t.cols.map(x=>x.l),...t.rows.map(r=>t.cols.map(x=>r[x.k]??''))].map(l=>l.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n'));
+  if(a==='del')ask('Delete this tab and all its data?',[{n:'x',l:'',o:'Cancel|Yes, delete'}],d=>{if(d.x!=='Cancel'){S.tabs=S.tabs.filter(x=>x.id!==t.id);ui.tab='overview';save();render()}})}});
+document.addEventListener('change',e=>{const i=e.target,t=tab(ui.tab);if(i.id==='f'){ui.f=i.value;return render()}if(!i.dataset.r||!t)return;
+ const r=t.rows.find(x=>x.id===i.dataset.r),x=t.cols.find(x=>x.k===i.dataset.k);let v=i.value;if(['number','money','progress'].includes(x.t))v=v===''?'':+v;if(x.t==='progress')v=Math.min(100,Math.max(0,v||0));
+ r[x.k]=v;save();if(x.t==='select')i.dataset.v=v;if(x.t==='progress'){i.value=v;i.nextElementSibling.firstChild.style.width=v+'%'}
+ if(t.id==='inventory')i.closest('tr').classList.toggle('low',+r.qty<=+r.min);
+ if(x.t==='money'){const R=[...i.closest('table').querySelectorAll(`[data-k="${x.k}"]`)].reduce((s,n)=>s+(+n.value||0),0);i.closest('table').querySelector('tfoot tr').children[t.cols.indexOf(x)].textContent='Σ '+fmt(R)}});
+document.addEventListener('input',e=>{if(e.target.id==='q'){ui.q=e.target.value;const p=e.target.selectionStart;render();const q=$('#q');q.focus();q.setSelectionRange(p,p)}});
+const pj=tab('projects');if(pj&&!pj.cols.some(x=>x.k==='start')){pj.cols.splice(Math.max(0,pj.cols.findIndex(x=>x.k==='due')),0,c('start','Start','date'));pj.rows.forEach(r=>{if(!r.start&&r.due){const d=new Date(r.due);d.setDate(d.getDate()-45);r.start=d.toISOString().slice(0,10)}});save()}
+render();
+</script></body></html>
