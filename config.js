@@ -1,7 +1,4 @@
-// Touch Designs Operations: connection settings.
-// Paste the two values from Supabase (Project Settings -> API) between the quotes.
-// They are safe to be public. NEVER paste the "service_role" key here.
 window.TD_CONFIG = {
-  url: '',   // Project URL, for example 'https://abcdxyz.supabase.co'
-  key: ''    // the "anon public" key
+  url: 'https://qdgyalqdkkenkdyjjdai.supabase.co',
+  key: 'sb_publishable_iuH2etlMcoN9Nti3-Pp7Sg_riKnm-zQ'
 };
